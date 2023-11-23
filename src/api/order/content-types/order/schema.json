@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "order"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "synthoms": {
+      "type": "string"
+    },
+    "diagnostic": {
+      "type": "string"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "order"
+    },
+    "articles": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::article.article",
+      "inversedBy": "orders"
+    },
+    "statuses": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::status.status",
+      "mappedBy": "order"
+    },
+    "bike": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::bike.bike",
+      "inversedBy": "orders"
+    }
+  }
+}

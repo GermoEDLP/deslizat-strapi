@@ -660,6 +660,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    order: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToOne',
+      'api::order.order'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -673,6 +678,289 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'admin::user'
     > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiArticleArticle extends Schema.CollectionType {
+  collectionName: 'articles';
+  info: {
+    singularName: 'article';
+    pluralName: 'articles';
+    displayName: 'article';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String;
+    description: Attribute.String;
+    coast: Attribute.Decimal;
+    cuantity: Attribute.Integer;
+    unity: Attribute.Enumeration<['unidad', 'kit', 'pack']>;
+    orders: Attribute.Relation<
+      'api::article.article',
+      'manyToMany',
+      'api::order.order'
+    >;
+    cuantity_history: Attribute.Relation<
+      'api::article.article',
+      'oneToMany',
+      'api::article-cuantity.article-cuantity'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::article.article',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiArticleCuantityArticleCuantity
+  extends Schema.CollectionType {
+  collectionName: 'article_cuantities';
+  info: {
+    singularName: 'article-cuantity';
+    pluralName: 'article-cuantities';
+    displayName: 'article-cuantity';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    cuantity: Attribute.Integer;
+    add: Attribute.Boolean;
+    article: Attribute.Relation<
+      'api::article-cuantity.article-cuantity',
+      'manyToOne',
+      'api::article.article'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::article-cuantity.article-cuantity',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::article-cuantity.article-cuantity',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBikeBike extends Schema.CollectionType {
+  collectionName: 'bikes';
+  info: {
+    singularName: 'bike';
+    pluralName: 'bikes';
+    displayName: 'bike';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    model: Attribute.String;
+    description: Attribute.String;
+    brand: Attribute.Relation<
+      'api::bike.bike',
+      'manyToOne',
+      'api::brand.brand'
+    >;
+    size: Attribute.Relation<'api::bike.bike', 'manyToOne', 'api::size.size'>;
+    types: Attribute.Relation<'api::bike.bike', 'oneToMany', 'api::type.type'>;
+    orders: Attribute.Relation<
+      'api::bike.bike',
+      'oneToMany',
+      'api::order.order'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::bike.bike', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::bike.bike', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiBrandBrand extends Schema.CollectionType {
+  collectionName: 'brands';
+  info: {
+    singularName: 'brand';
+    pluralName: 'brands';
+    displayName: 'brand';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    bikes: Attribute.Relation<
+      'api::brand.brand',
+      'oneToMany',
+      'api::bike.bike'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::brand.brand',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::brand.brand',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'order';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    synthoms: Attribute.String;
+    diagnostic: Attribute.String;
+    user: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    articles: Attribute.Relation<
+      'api::order.order',
+      'manyToMany',
+      'api::article.article'
+    >;
+    statuses: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::status.status'
+    >;
+    bike: Attribute.Relation<'api::order.order', 'manyToOne', 'api::bike.bike'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiSizeSize extends Schema.CollectionType {
+  collectionName: 'sizes';
+  info: {
+    singularName: 'size';
+    pluralName: 'sizes';
+    displayName: 'size';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    value: Attribute.String;
+    label: Attribute.String;
+    bikes: Attribute.Relation<'api::size.size', 'oneToMany', 'api::bike.bike'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::size.size', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::size.size', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiStatusStatus extends Schema.CollectionType {
+  collectionName: 'statuses';
+  info: {
+    singularName: 'status';
+    pluralName: 'statuses';
+    displayName: 'status';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    value: Attribute.String;
+    label: Attribute.String;
+    order: Attribute.Relation<
+      'api::status.status',
+      'manyToOne',
+      'api::order.order'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::status.status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::status.status',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTypeType extends Schema.CollectionType {
+  collectionName: 'types';
+  info: {
+    singularName: 'type';
+    pluralName: 'types';
+    displayName: 'type';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    value: Attribute.String;
+    label: Attribute.String;
+    bike: Attribute.Relation<'api::type.type', 'manyToOne', 'api::bike.bike'>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::type.type', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::type.type', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -693,6 +981,14 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::article.article': ApiArticleArticle;
+      'api::article-cuantity.article-cuantity': ApiArticleCuantityArticleCuantity;
+      'api::bike.bike': ApiBikeBike;
+      'api::brand.brand': ApiBrandBrand;
+      'api::order.order': ApiOrderOrder;
+      'api::size.size': ApiSizeSize;
+      'api::status.status': ApiStatusStatus;
+      'api::type.type': ApiTypeType;
     }
   }
 }

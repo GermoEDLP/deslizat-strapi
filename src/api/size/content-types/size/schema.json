@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sizes",
+  "info": {
+    "singularName": "size",
+    "pluralName": "sizes",
+    "displayName": "size"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "bikes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bike.bike",
+      "mappedBy": "size"
+    }
+  }
+}

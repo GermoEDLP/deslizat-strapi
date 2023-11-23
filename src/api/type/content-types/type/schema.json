@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "types",
+  "info": {
+    "singularName": "type",
+    "pluralName": "types",
+    "displayName": "type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "value": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "bike": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::bike.bike",
+      "inversedBy": "types"
+    }
+  }
+}

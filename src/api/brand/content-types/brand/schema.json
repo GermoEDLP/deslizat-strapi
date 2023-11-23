@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "brands",
+  "info": {
+    "singularName": "brand",
+    "pluralName": "brands",
+    "displayName": "brand"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "bikes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::bike.bike",
+      "mappedBy": "brand"
+    }
+  }
+}

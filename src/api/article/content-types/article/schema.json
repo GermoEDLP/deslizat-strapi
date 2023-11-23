@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "article",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "coast": {
+      "type": "decimal"
+    },
+    "cuantity": {
+      "type": "integer"
+    },
+    "unity": {
+      "type": "enumeration",
+      "enum": [
+        "unidad",
+        "kit",
+        "pack"
+      ]
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::order.order",
+      "mappedBy": "articles"
+    },
+    "cuantity_history": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::article-cuantity.article-cuantity",
+      "mappedBy": "article"
+    }
+  }
+}
